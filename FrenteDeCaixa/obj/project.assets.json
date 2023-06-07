@@ -90,11 +90,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projetos\\FrenteDeCaixa\\FrenteDeCaixa\\FrenteDeCaixa.csproj",
+      "projectUniqueName": "D:\\GitHub\\FrenteDeCaixa\\FrenteDeCaixa\\FrenteDeCaixa.csproj",
       "projectName": "FrenteDeCaixa",
-      "projectPath": "D:\\Projetos\\FrenteDeCaixa\\FrenteDeCaixa\\FrenteDeCaixa.csproj",
+      "projectPath": "D:\\GitHub\\FrenteDeCaixa\\FrenteDeCaixa\\FrenteDeCaixa.csproj",
       "packagesPath": "C:\\Users\\joao_\\.nuget\\packages\\",
-      "outputPath": "D:\\Projetos\\FrenteDeCaixa\\FrenteDeCaixa\\obj\\",
+      "outputPath": "D:\\GitHub\\FrenteDeCaixa\\FrenteDeCaixa\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

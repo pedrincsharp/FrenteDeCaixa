@@ -9,8 +9,12 @@ namespace FrenteDeCaixa.Model
     internal class Venda
     {
         public int Id { get; set; }
-        public Cliente Cliente { get; set; }
-        public Produto Produto { get; set; }
-        public decimal Total { get; set; }
+        public int IdCliente { get; set; }
+        public decimal Total { get; set; } = 0.00m;
+        List<Extrato> Extratos { get; set; }
+        public Venda()
+        {
+            Extratos = new List<Extrato>();
+        }
     }
 }

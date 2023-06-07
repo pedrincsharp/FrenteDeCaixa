@@ -9,7 +9,7 @@ namespace FrenteDeCaixa.Model
         [Display(Name = "Produto")]
         public string Nome { get; set; } = "";
         [Display(Name = "Observação")]
-        public string Observacao { get; set; } = "";
+        public string? Observacao { get; set; } = "";
         [Display(Name = "Valor de venda")]
         public decimal Venda { get; set; } = 0.00m;
         [Display(Name = "Valor de custo")]

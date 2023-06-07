@@ -10,8 +10,7 @@ namespace FrenteDeCaixa.View.Atendimento
     internal interface IAtendimento
     {
         int Id { get; set; }
-        Cliente Cliente { get; set; }
-        Produto Produto { get; set; }
+        int IdCliente { get; set; }
         decimal Total { get; set; }
     }
 }

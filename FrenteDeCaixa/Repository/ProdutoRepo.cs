@@ -1,9 +1,5 @@
-﻿using FrenteDeCaixa.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Dapper;
+using FrenteDeCaixa.Model;
 
 namespace FrenteDeCaixa.Repository
 {
@@ -11,27 +7,49 @@ namespace FrenteDeCaixa.Repository
     {
         public int Delete(int id)
         {
-            throw new NotImplementedException();
+            string ssql = "DELETE FROM produtos WHERE Id = @id";
+            using (var db = Conexao.GetSqlConnection())
+            {
+                return db.Execute(ssql, new { id });
+            }
         }
 
         public List<Produto> GetAll()
         {
-            throw new NotImplementedException();
+            string ssql = "SELECT * FROM produtos";
+            using (var db = Conexao.GetSqlConnection())
+            {
+                return db.Query<Produto>(ssql).ToList();
+            }
         }
 
         public Produto GetValue(int id)
         {
-            throw new NotImplementedException();
+            string ssql = "SELECT * FROM produtos WHERE Id = @id";
+            using (var db = Conexao.GetSqlConnection())
+            {
+                return db.QueryFirstOrDefault<Produto>(ssql, new { id });
+            }
         }
 
         public int Insert(Produto value)
         {
-            throw new NotImplementedException();
+            string ssql = "INSERT INTO produtos (Nome,Observacao,Venda,Custo,Estoque)";
+            ssql += " VALUES (@Nome,@Observacao,@Venda,@Custo,@Estoque)";
+            using (var db = Conexao.GetSqlConnection())
+            {
+                return db.Execute(ssql, value);
+            }
         }
 
         public int Update(Produto value)
         {
-            throw new NotImplementedException();
+            string ssql = "UPDATE produtos SET Nome = @Nome, Observacao = @Observacao, Venda = @Venda, Custo = @Custo, Estoque = @Estoque";
+            ssql += " WHERE Id = @Id";
+            using (var db = Conexao.GetSqlConnection())
+            {
+                return db.Execute(ssql, value);
+            }
         }
     }
 }

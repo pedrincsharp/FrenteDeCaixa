@@ -1,8 +1,12 @@
-﻿using System;
+﻿using FrenteDeCaixa.Model;
+using FrenteDeCaixa.Presenter;
+using FrenteDeCaixa.Utils;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Design;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,16 +16,116 @@ namespace FrenteDeCaixa.View.Produtos
 {
     public partial class ProdutosView : Form, IProdutosView
     {
+        private ProdutosPresenter presenter;
+
         public ProdutosView()
         {
             InitializeComponent();
+            presenter = new ProdutosPresenter(this);
+            AssociarEvento();
         }
 
-        public int Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string Nome { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string Observacao { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public decimal Venda { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public decimal Custo { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public decimal Estoque { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int Id
+        {
+            get
+            {
+                return Conversao.ConverterIntStr(txtId.Text,1);
+            }
+            set
+            {
+                txtId.Text = value.ToString();
+            }
+        }
+        public string Nome
+        {
+            get
+            {
+                return txtNome.Text;
+            }
+            set
+            {
+                txtNome.Text = value;
+            }
+        }
+        public string? Observacao
+        {
+            get
+            {
+                return txtObs.Text;
+            }
+            set
+            {
+                txtObs.Text = value;
+            }
+        }
+        public decimal Venda
+        {
+            get
+            {
+                return Conversao.ConverterDecimalStr(txtVenda.Text);
+            }
+            set
+            {
+                txtVenda.Text = value.ToString();
+            }
+        }
+        public decimal Custo
+        {
+            get
+            {
+                return Conversao.ConverterDecimalStr(txtCusto.Text);
+            }
+            set
+            {
+                txtCusto.Text = value.ToString();
+            }
+        }
+        public decimal Estoque
+        {
+            get
+            {
+                return Conversao.ConverterDecimalStr(txtEstoque.Text);
+            }
+            set
+            {
+                txtEstoque.Text = value.ToString();
+            }
+        }
+
+        public void AssociarEvento()
+        {
+            btnSalvar.Click += delegate { salvarProduto?.Invoke(this, EventArgs.Empty); };
+            btnExcluir.Click += delegate { excluirProduto?.Invoke(this, EventArgs.Empty); };
+            btnNovo.Click += delegate { novoProduto?.Invoke(this, EventArgs.Empty); };
+            txtId.KeyDown += (s, e) =>
+            {
+                if (e.KeyCode == Keys.Enter)
+                    carregarProduto?.Invoke(this, EventArgs.Empty);
+            };
+        }
+
+        public event EventHandler salvarProduto;
+        public event EventHandler excluirProduto;
+        public event EventHandler novoProduto;
+        public event EventHandler carregarProduto;
+
+        public void SetListaGridProdutos(BindingSource lista)
+        {
+            gridProdutos.DataSource = lista;
+        }
+
+        public void LimparView()
+        {
+            foreach (Control ctrl in this.Controls)
+            {
+                if (ctrl is TextBox && ctrl.Name != "txtId")
+                    ctrl.Text = "";
+            }
+        }
+
+        private void gridProdutos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            //(Produto)gridProdutos.Rows[e.RowIndex].DataBoundItem;
+        }
     }
 }
