@@ -19,6 +19,11 @@ namespace FrenteDeCaixa.Repository
             throw new NotImplementedException();
         }
 
+        public int GetUltCod()
+        {
+            throw new NotImplementedException();
+        }
+
         public Venda GetValue(int id)
         {
             throw new NotImplementedException();

@@ -8,7 +8,7 @@ namespace FrenteDeCaixa.Utils
 {
     internal static class Conversao
     {
-        public static int ConverterIntStr(string value, int defaultValue = 0)
+        public static int ConverterIntStr(this string value, int defaultValue = 0)
         {
             int temp;
             if(!int.TryParse(value, out temp))
@@ -18,7 +18,7 @@ namespace FrenteDeCaixa.Utils
             return temp;
         }
 
-        public static decimal ConverterDecimalStr(string value, decimal defaultValue = 0.00m)
+        public static decimal ConverterDecimalStr(this string value, decimal defaultValue = 0.00m)
         {
             decimal temp;
             if (!decimal.TryParse(value, out temp))

@@ -13,5 +13,6 @@ namespace FrenteDeCaixa.Repository
         int Delete(int id);
         List<T> GetAll();
         T GetValue(int id);
+        int GetUltCod();
     }
 }

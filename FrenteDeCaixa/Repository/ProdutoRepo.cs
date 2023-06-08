@@ -23,6 +23,15 @@ namespace FrenteDeCaixa.Repository
             }
         }
 
+        public int GetUltCod()
+        {
+            string ssql = "SELECT (IFNULL(MAX(Id),0) + 1) AS ULTCOD FROM produtos";
+            using(var db = Conexao.GetSqlConnection())
+            {
+                return db.Query<int>(ssql).ToList()[0];
+            }
+        }
+
         public Produto GetValue(int id)
         {
             string ssql = "SELECT * FROM produtos WHERE Id = @id";
@@ -34,8 +43,8 @@ namespace FrenteDeCaixa.Repository
 
         public int Insert(Produto value)
         {
-            string ssql = "INSERT INTO produtos (Nome,Observacao,Venda,Custo,Estoque)";
-            ssql += " VALUES (@Nome,@Observacao,@Venda,@Custo,@Estoque)";
+            string ssql = "INSERT INTO produtos (Id,Nome,Observacao,Venda,Custo,Estoque)";
+            ssql += " VALUES (@Id,@Nome,@Observacao,@Venda,@Custo,@Estoque)";
             using (var db = Conexao.GetSqlConnection())
             {
                 return db.Execute(ssql, value);

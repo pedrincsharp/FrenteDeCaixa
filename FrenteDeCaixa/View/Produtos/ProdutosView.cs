@@ -29,7 +29,7 @@ namespace FrenteDeCaixa.View.Produtos
         {
             get
             {
-                return Conversao.ConverterIntStr(txtId.Text,1);
+                return txtId.Text.ConverterIntStr(1);
             }
             set
             {
@@ -62,7 +62,7 @@ namespace FrenteDeCaixa.View.Produtos
         {
             get
             {
-                return Conversao.ConverterDecimalStr(txtVenda.Text);
+                return txtVenda.Text.ConverterDecimalStr();
             }
             set
             {
@@ -73,7 +73,7 @@ namespace FrenteDeCaixa.View.Produtos
         {
             get
             {
-                return Conversao.ConverterDecimalStr(txtCusto.Text);
+                return txtCusto.Text.ConverterDecimalStr();
             }
             set
             {
@@ -84,7 +84,7 @@ namespace FrenteDeCaixa.View.Produtos
         {
             get
             {
-                return Conversao.ConverterDecimalStr(txtEstoque.Text);
+                return txtEstoque.Text.ConverterDecimalStr();
             }
             set
             {
@@ -94,9 +94,12 @@ namespace FrenteDeCaixa.View.Produtos
 
         public void AssociarEvento()
         {
-            btnSalvar.Click += delegate { salvarProduto?.Invoke(this, EventArgs.Empty); };
+            
             btnExcluir.Click += delegate { excluirProduto?.Invoke(this, EventArgs.Empty); };
             btnNovo.Click += delegate { novoProduto?.Invoke(this, EventArgs.Empty); };
+
+            btnSalvar.Click += delegate { salvarProduto?.Invoke(this, EventArgs.Empty); };
+
             txtId.KeyDown += (s, e) =>
             {
                 if (e.KeyCode == Keys.Enter)

@@ -1,5 +1,6 @@
 ﻿using FrenteDeCaixa.Model;
 using FrenteDeCaixa.Repository;
+using FrenteDeCaixa.Utils;
 using FrenteDeCaixa.View.Produtos;
 
 namespace FrenteDeCaixa.Presenter
@@ -28,6 +29,46 @@ namespace FrenteDeCaixa.Presenter
             CarregarListaProdutos(true);
         }
 
+        private bool ValidarCampos()
+        {
+            if (_view.Id <= 0)
+            {
+                MensagemValidacao("Campo ID informado é inválido!");
+                return false;
+            }
+
+            if (!_view.Nome.IsLetterAndNumeric())
+            {
+                MensagemValidacao("Campo PRODUTO é inválido!");
+                return false;
+            }
+
+            if(_view.Venda <= 0)
+            {
+                MensagemValidacao("Campo VALOR DE VENDA é inválido!");
+                return false;
+            }
+
+            if(_view.Custo <= 0)
+            {
+                MensagemValidacao("Campo VALOR DE CUSTO é inválido!");
+                return false;
+            }
+
+            if(_view.Estoque < 0)
+            {
+                MensagemValidacao("Campo ESTOQUE é inválido!");
+                return false;
+            }
+
+            return true;
+        }
+
+        private void MensagemValidacao(string msg)
+        {
+            MessageBox.Show(msg, "Cadastro de produtos", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
         private void CarregarListaProdutos(bool novo = false)
         {
             _produtos = _repository.GetAll();
@@ -35,7 +76,7 @@ namespace FrenteDeCaixa.Presenter
             if (novo)
             {
                 this._view.LimparView();
-                this._view.Id = _produtos.Max<Produto>(x => x.Id) + 1;
+                this._view.Id = _repository.GetUltCod();
             }
         }
 
@@ -70,7 +111,10 @@ namespace FrenteDeCaixa.Presenter
             CarregarListaProdutos();
             IEnumerable<Produto> query = _produtos.Where(x => x.Id == this._view.Id);
             if (query.Count() == 0 || query == null)
+            {
+                MensagemValidacao("ID informado é inválido ou não existe!");
                 return;
+            }
 
             _repository.Delete(this._view.Id);
 
@@ -80,6 +124,13 @@ namespace FrenteDeCaixa.Presenter
 
         private void _view_salvarProduto(object? sender, EventArgs e)
         {
+            if (!ValidarCampos())
+            {
+                CarregarListaProdutos(true);
+                return;
+            }
+                
+
             CarregarListaProdutos();
             IEnumerable<Produto> query = _produtos.Where(x => x.Id == this._view.Id);
 
